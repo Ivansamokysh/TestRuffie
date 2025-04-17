@@ -11,7 +11,7 @@ class MainScr(Screen):
         hl = BoxLayout(orientation="horizontal", spacing=10, padding=10)
         vl = BoxLayout(orientation="vertical", spacing=10, padding=10)
 
-        text1 = Label(text=f"{user_input}") 
+        text1 = Label(text=f"{name_input}") 
         txt_index = Label(text="Ваш індекс Руф’є:")
         txt_workheart = Label(text="Працездатність серця:")
         txt_nodata = Label(text="Немає даних для такого віку")
