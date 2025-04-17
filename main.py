@@ -11,31 +11,20 @@ class MainScr(Screen):
         hl = BoxLayout(orientation="horizontal", spacing=10, padding=10)
         vl = BoxLayout(orientation="vertical", spacing=10, padding=10)
 
-        text1 = Label(text=f"{name_input}") 
-        txt_index = Label(text="Ваш індекс Руф’є:")
-        txt_workheart = Label(text="Працездатність серця:")
-        txt_nodata = Label(text="Немає даних для такого віку")
-
         txt_res = []
         txt_res.append("Низька. Терміново зверніться до лікаря!")
         txt_res.append("Задовільна. Зверніться до лікаря!")
         txt_res.append("Середня. Можливо, варто додатково обстежитись у лікаря.")
         txt_res.append("Вище середнього")
         txt_res.append("Висока")
-
-        vl.add_widget(text1)
-        vl.add_widget(txt_index)
-        vl.add_widget(txt_workheart)
-        hl.add_widget(vl)
-        self.add_widget(hl)
+        txt_nodata = "Немає даних для такого віку"
 
         def ruffier_index(P1, P2, P3):
             return (4 * (P1 + P2 + P3) - 200) / 10
 
         def neud_level(age):
             norm_age = (min(age, 15) - 7) // 2
-            result = 21 - norm_age * 1.5
-            return result
+            return 21 - norm_age * 1.5
 
         def ruffier_result(r_index, level):
             if r_index >= level:
@@ -53,12 +42,22 @@ class MainScr(Screen):
 
         def test(P1, P2, P3, age):
             if age < 7:
-                return (txt_index + "0", txt_nodata)
+                return ("0", txt_nodata)
             else:
-                ruff_index = ruffier_index(P1, P2, P3)
-                result = txt_res[ruffier_result(ruff_index, neud_level(age))]
-                res = txt_index + str(ruff_index) + "\n" + txt_workheart + result
-                return res
+                r_index = ruffier_index(P1, P2, P3)
+                result = txt_res[ruffier_result(r_index, neud_level(age))]
+                return (str(round(r_index, 1)), result)
+        index, test_result = test(P1, P2, P3, age)
+
+        text1 = Label(text=f"{user_input}")
+        txt_index = Label(text=f"Ваш індекс Руф’є: {index}")
+        txt_workheart = Label(text=f"Працездатність серця: {test_result}")
+
+        vl.add_widget(text1)
+        vl.add_widget(txt_index)
+        vl.add_widget(txt_workheart)
+        hl.add_widget(vl)
+        self.add_widget(hl)
 
 class MyApp(App):
     def build(self):
