@@ -270,8 +270,6 @@ class RuffierApp(App):
 print
 if __name__ == '__main__':
     RuffierApp().run()
-    def build(self):
-        app = ScreenManager()
         app.add_widget(MainScr())
         return app
 MyApp().run()
