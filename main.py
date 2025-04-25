@@ -62,9 +62,12 @@ class FirstScreen(Screen):
         self.manager.transition.direction = 'up'
         self.manager.current = 'second_screen'
 
-        if not self.name_input.text or not self.age_input.text:
+        if not self.name_input.text or not self.age_input.text:  #ErrorWindow з'являється на екрані тоді коли користувач не ввів дані
             error_text1 = "Треба ввести ім'я та вік"
             ErrorWindow(title=error_text1).open()
+        else:
+            self.manager.transition.direction = 'up'
+            self.manager.current = 'second_screen'
 
 class SecondScreen(Screen):
     def __init__(self, **kwargs):
@@ -105,12 +108,12 @@ class SecondScreen(Screen):
         layout.add_widget(continue_button)
         self.add_widget(layout)
 
-        if not self.text_input.text:
+        if not self.text_input.text:    #ErrorWindow з'являється на екрані тоді коли користувач не ввів дані
             error_text2 = "Треба ввести результат"
             ErrorWindow(title=error_text2).open()
         else:
             self.manager.transition.direction = 'up'
-            self.manager.current = 'second_screen'
+            self.manager.current = 'third_screen'
         
 class ThirdScreen(Screen):
     def __init__(self, name="third_screen"):
@@ -181,7 +184,7 @@ class FourthScreen(Screen):
         self.manager.transition.direction = 'up'
         self.manager.current = 'fifth_screen'
 
-        if not self.result_input or not self.result_after_input:
+        if not self.result_input or not self.result_after_input:  #ErrorWindow з'являється на екрані тоді коли користувач не ввів дані
             error_text3 = "Треба ввести результат до відпочинку та після"
             ErrorWindow(title=error_text3).open()
         else:
@@ -270,6 +273,3 @@ class RuffierApp(App):
 print
 if __name__ == '__main__':
     RuffierApp().run()
-        app.add_widget(MainScr())
-        return app
-MyApp().run()
